@@ -1,0 +1,6 @@
+---
+squid_exporter_version:   "1.9.1"
+squid_exporter_url:       "https://github.com/boynux/squid-exporter/releases/download/v{{ squid_exporter_version }}/squid-exporter"
+squid_exporter_squid_host: localhost
+squid_exporter_squid_port: 3128
+squid_exporter_listen_port: "9103"

@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: "Philippe leal"
+  description: "Install and configure squid exporter metrics for prometheus"
+  role_name: apps_squid_exporter
+  license: "GNU General Public License v3.0"
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: "Ubuntu"
+      versions:
+        - "focal"
+    - name: "Debian"
+      versions:
+        - "buster"
+
+  galaxy_tags:
+    - squid
+    - exporter
+    - prometheus
+
+dependencies: []
