@@ -1,29 +1,29 @@
 ---
-- name: "Check for squid_exporter binary"
+- name: "Check for dhcpd-exporter.py binary"
   stat:
-    path: "/usr/local/bin/squid_exporter"
+    path: "/usr/local/bin/dhcpd-exporter.py"
   changed_when: false
-  register: squid_exporter_install
+  register: dhcpd_exporter_install
 
-- when: not squid_exporter_install.stat.exists
+- when: not dhcpd_exporter_install.stat.exists
   block:
-    - name: "Download squid_exporter..."
+    - name: "Download dhcpd_exporter..."
       get_url:
-        url: '{{ squid_exporter_url }}'
-        dest: /usr/local/bin/
+        url: '{{ dhcpd_exporter_url }}'
+        dest: /usr/local/bin/dhcpd-exporter.py
         timeout: 120
         mode: 0755
 
-- name: "Create systemd for squid_exporter"
+- name: "Create systemd for dhcpd_exporter"
   template:
-    src: squid_exporter.service
-    dest: /etc/systemd/system/
+    src: dhcpd_exporter.service.j2
+    dest: /etc/systemd/system/dhcpd_exporter.service
     mode: '0644'
-  notify: "restart squid_exporter"
+  notify: "restart dhcpd_exporter"
 
-- name: "Enable and Start squid_exporter.service"
+- name: "Enable and Start dhcpd_exporter.service"
   systemd:
-    name: squid_exporter
+    name: dhcpd_exporter
     state: started
     enabled: true
     daemon_reload: true

@@ -1,0 +1,18 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus dhcpd Exporter
+After=network-online.target
+StartLimitInterval=0
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/local/bin/dhcpd-exporter.py -l {{ dhcpd_exporter_listen }} -p {{ dhcpd_exporter_port }} -b /usr/bin/dhcpd-pools
+ExecReload=/bin/kill -HUP $MAINPID
+SyslogIdentifier=dhcpd_exporter
+RestartSec=1
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

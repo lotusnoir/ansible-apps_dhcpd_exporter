@@ -5,7 +5,7 @@ services: docker
 
 env:
   global:
-    - ROLE_NAME: apps_squid_exporter
+    - ROLE_NAME: apps_dhcpd_exporter
   matrix:
     - MOLECULE_DISTRO: ubuntu2004
     - MOLECULE_DISTRO: ubuntu1804

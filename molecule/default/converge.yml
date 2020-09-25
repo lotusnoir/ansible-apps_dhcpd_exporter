@@ -10,4 +10,4 @@
       changed_when: false
 
   roles:
-    - role: apps_squid_exporter
+    - role: apps_dhcpd_exporter

@@ -1,5 +1,5 @@
 ---
-- name: "restart squid_exporter"
+- name: "restart dhcpd_exporter"
   service:
-    name: "squid_exporter"
+    name: "dhcpd_exporter"
     state: "restarted"
