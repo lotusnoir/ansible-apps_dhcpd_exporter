@@ -1,4 +1,4 @@
 ---
-dhcpd_exporter_url: "https://github.com/lotusnoir/prometheus-dhcpd_exporter/blob/master/dhcp-stats-prometheus.py"
+dhcpd_exporter_url: "https://raw.githubusercontent.com/lotusnoir/prometheus-dhcpd_exporter/master/dhcp-stats-prometheus.py"
 dhcpd_exporter_listen: "0.0.0.0"
 dhcpd_exporter_port: "9119"
