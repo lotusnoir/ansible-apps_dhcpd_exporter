@@ -9,7 +9,7 @@
   block:
     - name: "Install requierements"
       package:
-        name: ["python3-bottle"]                                                                                          
+        name: ["python3-bottle"]
         state: present
 
     - name: "Download dhcpd_exporter..."
