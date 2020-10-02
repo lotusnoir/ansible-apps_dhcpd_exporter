@@ -7,6 +7,11 @@
 
 - when: not dhcpd_exporter_install.stat.exists
   block:
+    - name: "Install requierements"
+      package:
+        name: ["python3-bottle"]                                                                                          
+        state: present
+
     - name: "Download dhcpd_exporter..."
       get_url:
         url: '{{ dhcpd_exporter_url }}'
