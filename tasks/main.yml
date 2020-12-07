@@ -1,7 +1,14 @@
 ---
+- name: "End play if distribution not suported"
+  meta: end_host
+  when:
+    - ansible_distribution != "Debian"
+    - ansible_distribution != "Ubuntu"
+    - ansible_distribution != "CentOS"
+
 - name: "Check for dhcpd-exporter.py binary"
   stat:
-    path: "/usr/local/bin/dhcpd-exporter.py"
+    path: '{{ dhcpd_exporter_install_dir }}/dhcpd-exporter.py'
   changed_when: false
   register: dhcpd_exporter_install
 
@@ -9,20 +16,20 @@
   block:
     - name: "Install requierements"
       package:
-        name: ["python3-bottle"]
+        name: '{{ dhcpd_exporter_packages }}'
         state: present
 
     - name: "Download dhcpd_exporter..."
       get_url:
         url: '{{ dhcpd_exporter_url }}'
-        dest: /usr/local/bin/dhcpd-exporter.py
+        dest: '{{ dhcpd_exporter_install_dir }}/dhcpd-exporter.py'
         timeout: 120
-        mode: 0755
+        mode: '0755'
 
 - name: "Create systemd for dhcpd_exporter"
   template:
-    src: dhcpd_exporter.service.j2
-    dest: /etc/systemd/system/dhcpd_exporter.service
+    src: 'dhcpd_exporter.service.j2'
+    dest: '/etc/systemd/system/dhcpd_exporter.service'
     mode: '0644'
   notify: "restart dhcpd_exporter"
 

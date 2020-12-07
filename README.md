@@ -12,6 +12,7 @@ Deploy [dhcpd_exporter](https://github.com/lotusnoir/prometheus-dhcpd_exporter) 
 | -------------- | ------------- | -----------------------------------|
 | `dhcpd_exporter_listen` | 0.0.0.0 | listen address |
 | `dhcpd_exporter_port` | 9119 | port to expose prometheus metrics |
+| `dhcpd_exporter_install_dir` | /usr/local/bin | Install directory for binary |
 
 ## Examples
 

@@ -8,7 +8,7 @@ StartLimitInterval=0
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/local/bin/dhcpd-exporter.py -l {{ dhcpd_exporter_listen }} -p {{ dhcpd_exporter_port }} -b /usr/bin/dhcpd-pools
+ExecStart={{ dhcpd_exporter_install_dir }}/dhcpd-exporter.py -l {{ dhcpd_exporter_listen }} -p {{ dhcpd_exporter_port }} -b /usr/bin/dhcpd-pools
 ExecReload=/bin/kill -HUP $MAINPID
 SyslogIdentifier=dhcpd_exporter
 RestartSec=1
