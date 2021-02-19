@@ -14,7 +14,7 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=lotusnoir_ansible-apps_dhcpd_exporter&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=lotusnoir_ansible-apps_dhcpd_exporter)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=lotusnoir_ansible-apps_dhcpd_exporter&metric=security_rating)](https://sonarcloud.io/dashboard?id=lotusnoir_ansible-apps_dhcpd_exporter)
 
-Deploy [dhcpd_exporter](https://github.com/lotusnoir/prometheus-dhcpd_exporter) to expose dhcpd metrics to prometheus.
+Deploy [dhcpd_exporter](https://github.com/atonkyra/dhcp-stats-prometheus) to expose dhcpd metrics to prometheus.
 
 ## Role variables
 
@@ -37,6 +37,14 @@ Deploy [dhcpd_exporter](https://github.com/lotusnoir/prometheus-dhcpd_exporter) 
 	    http_proxy: "{{ http_proxy }}"
 	    https_proxy: "{{ https_proxy }}"
 	    no_proxy: "{{ no_proxy }}
+
+## Prometheus rules
+
+TODO
+
+## Grafana dashboard
+
+A sample dashboard is available here: [https://grafana.com/grafana/dashboards/13589](https://grafana.com/grafana/dashboards/13589)
 
 ## License
 
