@@ -1,40 +1,88 @@
 ---
 dependency:
   name: galaxy
-
 driver:
   name: docker
-
-lint: |
-  yamllint .
-
 platforms:
-  - name: test-01.dvlp.example.com
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-debian10}-ansible:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
+  - name: bionic
+    pre_build_image: true
+    image: quay.io/paulfantom/molecule-systemd:ubuntu-18.04
+    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
+  - name: xenial
     pre_build_image: true
-
+    image: quay.io/paulfantom/molecule-systemd:ubuntu-16.04
+    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: stretch
+    pre_build_image: true
+    image: quay.io/paulfantom/molecule-systemd:debian-9
+    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: buster
+    pre_build_image: true
+    image: quay.io/paulfantom/molecule-systemd:debian-10
+    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#- name: bullseye
+#  pre_build_image: true
+#  image: geerlingguy/docker-debian11-ansible #cant start service
+#  docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+#  privileged: true
+#  volumes:
+#    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#- name: centos7
+#  pre_build_image: true
+#  image: quay.io/paulfantom/molecule-systemd:centos-7
+#  docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+#  privileged: true
+#  volumes:
+#    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#- name: centos8
+#  pre_build_image: true
+#  image: quay.io/paulfantom/molecule-systemd:centos-8
+#  docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+#  privileged: true
+#  volumes:
+#    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#  groups:
+#    - python3
+#- name: rocky8
+#  pre_build_image: true
+#  image: geerlingguy/docker-rockylinux8-ansible:latest
+#  docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+#  privileged: true
+#  volumes:
+#    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#- name: fedora
+#  pre_build_image: true
+#  image: quay.io/paulfantom/molecule-systemd:fedora-30
+#  docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+#  privileged: true
+#  volumes:
+#    - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#  groups:
+#    - python3
 provisioner:
   name: ansible
   playbooks:
-    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-  lint: |
-    ansible-lint
-
-scenario:
-  name: default
-  test_sequence:
-    - destroy
-    - dependency
-    - lint
-    - syntax
-    - create
-    - converge
-    # - verify
-    - destroy
+    prepare: prepare.yml
+    converge: playbook.yml
+  inventory:
+    group_vars:
+      python3:
+        ansible_python_interpreter: /usr/bin/python3
+    host_vars:
+      bullseye:
+        ansible_python_interpreter: "/usr/bin/python3.9"
 
 verifier:
   name: goss

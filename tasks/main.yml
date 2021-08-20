@@ -1,41 +1,8 @@
 ---
-- name: "End play if distribution not suported"
-  meta: end_host
-  when:
-    - ansible_distribution != "Debian"
-    - ansible_distribution != "Ubuntu"
-    - ansible_distribution != "CentOS"
+### Checks
+- name: Import check tasks
+  import_tasks: check.yml
 
-- name: "Check for dhcpd-exporter.py binary"
-  stat:
-    path: '{{ dhcpd_exporter_install_dir }}/dhcpd-exporter.py'
-  changed_when: false
-  register: dhcpd_exporter_install
-
-- when: not dhcpd_exporter_install.stat.exists
-  block:
-    - name: "Install requierements"
-      package:
-        name: '{{ dhcpd_exporter_packages }}'
-        state: present
-
-    - name: "Download dhcpd_exporter..."
-      get_url:
-        url: '{{ dhcpd_exporter_url }}'
-        dest: '{{ dhcpd_exporter_install_dir }}/dhcpd-exporter.py'
-        timeout: 120
-        mode: '0755'
-
-- name: "Create systemd for dhcpd_exporter"
-  template:
-    src: 'dhcpd_exporter.service.j2'
-    dest: '/etc/systemd/system/dhcpd_exporter.service'
-    mode: '0644'
-  notify: "restart dhcpd_exporter"
-
-- name: "Enable and Start dhcpd_exporter.service"
-  systemd:
-    name: dhcpd_exporter
-    state: started
-    enabled: true
-    daemon_reload: true
+### Install
+- name: Import install tasks
+  import_tasks: install.yml

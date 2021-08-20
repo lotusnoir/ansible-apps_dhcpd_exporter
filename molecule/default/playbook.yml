@@ -1,0 +1,7 @@
+---
+- name: Run role
+  hosts: all
+  become: true
+
+  roles:
+    - role: apps_dhcpd_exporter

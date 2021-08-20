@@ -2,11 +2,12 @@
 # Requierements
 dhcpd_exporter_packages:
   - python3-bottle
+  - ca-certificates
 
 # Binary install
-dhcpd_exporter_url:         "https://raw.githubusercontent.com/lotusnoir/prometheus-dhcpd_exporter/master/dhcp-stats-prometheus.py"
-dhcpd_exporter_listen:      "0.0.0.0"
-dhcpd_exporter_port:        "9119"
+dhcpd_exporter_url: "https://raw.githubusercontent.com/lotusnoir/prometheus-dhcpd_exporter/master/dhcp-stats-prometheus.py"
+dhcpd_exporter_listen: "0.0.0.0"
+dhcpd_exporter_port: "9119"
 
 # Systemd install
 dhcpd_exporter_install_dir: "/usr/local/bin"
