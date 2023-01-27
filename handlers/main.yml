@@ -1,5 +1,5 @@
 ---
 - name: "restart dhcpd_exporter"
-  service:
+  ansible.builtin.service:
     name: "dhcpd_exporter"
     state: "restarted"

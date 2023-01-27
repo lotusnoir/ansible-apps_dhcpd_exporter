@@ -1,20 +1,27 @@
 ---
 galaxy_info:
-  author: "Philippe leal"
-  description: "Install and configure dhcpd exporter metrics for prometheus"
+  author: lotusnoir
   role_name: apps_dhcpd_exporter
-  license: "license: Apache License, Version 2.0"
+  description: "Deploy [dhcpd_exporter](https://github.com/atonkyra/dhcp-stats-prometheus) to expose dhcpd metrics to prometheus."
+  license: "Apache License, Version 2.0"
   min_ansible_version: 2.8
 
   platforms:
     - name: "Ubuntu"
       versions:
-        - "xenial"
+        - "focal"
         - "bionic"
+        - "jammy"
     - name: "Debian"
       versions:
+        - "bullseye"
         - "buster"
-        - "stretch"
+    - name: "RedHat"
+      versions:
+        - "Maipo"
+    - name: "OracleLinux"
+      versions:
+        - "8"
 
   galaxy_tags:
     - dhcpd

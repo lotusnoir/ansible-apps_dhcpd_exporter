@@ -2,6 +2,7 @@
 - name: Run role
   hosts: all
   become: true
+  any_errors_fatal: true
 
   roles:
-    - role: apps_dhcpd_exporter
+    - role: ansible-apps_dhcpd_exporter
