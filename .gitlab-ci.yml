@@ -1,7 +1,8 @@
 ---
 stages:
-  - checks
+  - lint
   - test
+  - molecule
   - changes
   - push
 
@@ -10,10 +11,10 @@ variables:
 
 
 ##################################################
-# SYNTAX CHECKS
+# LINT
 ##################################################
 yamllint:
-  stage: checks
+  stage: lint
   image: sdesbure/yamllint
   before_script:
     - yamllint --version
@@ -21,16 +22,23 @@ yamllint:
     - yamllint .
 
 ansible-lint:
-  stage: checks
+  stage: lint
   image: lotusnoir/ansible_play
   script:
     - ansible-lint .
 
+
+##################################################
+# TEST / SECU
+##################################################
+include:
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
 ######################################################
-# RUN MOLECULE FOR FULL TEST SCENARIO
+# RUN MOLECULE FOR EACH DISTRIB
 ######################################################
-molecule:
-  stage: test
+molecule_ubuntu22:
+  stage: molecule
   image: lotusnoir/molecule_play
   services:
     - docker:dind
@@ -39,19 +47,97 @@ molecule:
   needs:
     - yamllint
     - ansible-lint
-  before_script:
-    - molecule --version
   script:
-    - molecule test
+    - MOLECULE_DISTRIB=ubuntu22 molecule test
+molecule_ubuntu20:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  services:
+    - docker:dind
+  variables:
+    PY_COLORS: 1
+    MOLECULE_DOCKER_COMMAND: "--cap-add NET_ADMIN"
+  needs:
+    - yamllint
+    - ansible-lint
+  script:
+    - MOLECULE_DISTRIB=ubuntu20 molecule test
+molecule_ubuntu18:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  services:
+    - docker:dind
+  variables:
+    PY_COLORS: 1
+    MOLECULE_DOCKER_COMMAND: "--cap-add NET_ADMIN"
+  needs:
+    - yamllint
+    - ansible-lint
+  script:
+    - MOLECULE_DISTRIB=ubuntu18 molecule test
+molecule_debian10:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  services:
+    - docker:dind
+  variables:
+    PY_COLORS: 1
+  needs:
+    - yamllint
+    - ansible-lint
+  script:
+    - MOLECULE_DISTRIB=debian10 molecule test
+molecule_debian11:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  services:
+    - docker:dind
+  variables:
+    PY_COLORS: 1
+  needs:
+    - yamllint
+    - ansible-lint
+  script:
+    - MOLECULE_DISTRIB=debian11 molecule test
+molecule_oraclelinux8:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  services:
+    - docker:dind
+  variables:
+    PY_COLORS: 1
+  needs:
+    - yamllint
+    - ansible-lint
+  script:
+    - MOLECULE_DISTRIB=oraclelinux8 molecule test
+molecule_oraclelinux9:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  services:
+    - docker:dind
+  variables:
+    PY_COLORS: 1
+  needs:
+    - yamllint
+    - ansible-lint
+  script:
+    - MOLECULE_DISTRIB=oraclelinux9 molecule test
 
 ######################################################
 # GENERATE CHANGELOG FILE
 ######################################################
 changelog:
   stage: changes
-  image: node:latest
+  image: node:19
   needs:
-    - molecule
+    - molecule_ubuntu22
+    - molecule_ubuntu20
+    - molecule_ubuntu18
+    - molecule_debian10
+    - molecule_debian11
+    - molecule_oraclelinux8
+    - molecule_oraclelinux9
   artifacts:
     paths:
       - CHANGELOG.md

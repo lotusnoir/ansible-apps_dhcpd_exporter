@@ -14,14 +14,12 @@ galaxy_info:
         - "jammy"
     - name: "Debian"
       versions:
-        - "bullseye"
         - "buster"
-    - name: "RedHat"
-      versions:
-        - "Maipo"
+        - "bullseye"
     - name: "OracleLinux"
       versions:
         - "8"
+        - "9"
 
   galaxy_tags:
     - dhcpd
