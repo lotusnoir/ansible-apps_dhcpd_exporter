@@ -99,6 +99,18 @@ molecule_debian11:
     - ansible-lint
   script:
     - MOLECULE_DISTRIB=debian11 molecule test
+molecule_debian12:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  services:
+    - docker:dind
+  variables:
+    PY_COLORS: 1
+  needs:
+    - yamllint
+    - ansible-lint
+  script:
+    - MOLECULE_DISTRIB=debian12 molecule test
 molecule_oraclelinux8:
   stage: molecule
   image: lotusnoir/molecule_play
@@ -136,6 +148,7 @@ changelog:
     - molecule_ubuntu18
     - molecule_debian10
     - molecule_debian11
+    - molecule_debian12
     - molecule_oraclelinux8
     - molecule_oraclelinux9
   artifacts:
