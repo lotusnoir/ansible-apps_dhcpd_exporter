@@ -19,8 +19,8 @@ galaxy_info:
         - "bookworm"
     - name: "OracleLinux"
       versions:
-        - "8"
         - "9"
+        - "8"
 
   galaxy_tags:
     - dhcpd

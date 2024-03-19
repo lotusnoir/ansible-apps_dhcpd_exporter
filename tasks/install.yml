@@ -25,7 +25,7 @@
     src: 'dhcpd_exporter.service.j2'
     dest: '/etc/systemd/system/dhcpd_exporter.service'
     mode: '0644'
-  notify: "restart dhcpd_exporter"
+  notify: "Restart dhcpd_exporter"
 
 - name: "Enable and Start dhcpd_exporter.service"
   ansible.builtin.service:
