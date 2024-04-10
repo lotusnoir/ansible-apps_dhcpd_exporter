@@ -24,7 +24,8 @@
 Deploy [dhcpd_exporter](https://github.com/atonkyra/dhcp-stats-prometheus) to expose dhcpd metrics to prometheus.
 ## Requirements
 
-none
+"You need to install dhcpd - lotusnoir.apps_dhcpd"
+
 
 ## Role variables
 
