@@ -12,6 +12,10 @@
       ansible.builtin.package:
         name: '{{ dhcpd_exporter_packages }}'
         state: present
+      register: pkg_result
+      retries: 12
+      delay: 10
+      until: pkg_result is success
 
     - name: "Download dhcpd_exporter..."
       ansible.builtin.get_url:

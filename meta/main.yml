@@ -9,14 +9,17 @@ galaxy_info:
   platforms:
     - name: "Ubuntu"
       versions:
-        - "focal"
         - "bionic"
+        - "focal"
         - "jammy"
     - name: "Debian"
       versions:
         - "buster"
         - "bullseye"
         - "bookworm"
+    - name: "Rocky"
+      versions:
+        - "9"
     - name: "OracleLinux"
       versions:
         - "8"
