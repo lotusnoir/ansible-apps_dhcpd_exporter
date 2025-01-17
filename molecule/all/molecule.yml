@@ -39,6 +39,14 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
+  - name: apps-dhcpd-exporter-ubuntu24
+    pre_build_image: true
+    image: lotusnoir/ansible_molecule_test_images:ubuntu24
+    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    groups:
+      - python3
   - name: apps-dhcpd-exporter-debian10
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian10
