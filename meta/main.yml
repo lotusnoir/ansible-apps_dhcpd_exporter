@@ -4,12 +4,11 @@ galaxy_info:
   role_name: apps_dhcpd_exporter
   description: "Deploy [dhcpd_exporter](https://github.com/atonkyra/dhcp-stats-prometheus) to expose dhcpd metrics to prometheus."
   license: "Apache License, Version 2.0"
-  min_ansible_version: 2.8
+  min_ansible_version: "2.8"
 
   platforms:
     - name: "Ubuntu"
       versions:
-        - "bionic"
         - "focal"
         - "jammy"
         - "noble"
